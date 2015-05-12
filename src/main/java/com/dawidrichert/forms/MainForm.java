@@ -35,8 +35,16 @@ public class MainForm extends JFrame implements TableModelListener {
         });
         buttonEdit.addActionListener(e -> {
             int selectedIndex = table1.getSelectedRow();
-            BookForm bookForm = new BookForm(this, books.get(selectedIndex));
+            Book selectedBook = books.get(selectedIndex);
+
+            BookForm bookForm = new BookForm(this, selectedBook);
             bookForm.setVisible(true);
+        });
+        buttonRemove.addActionListener(e -> {
+            int selectedIndex = table1.getSelectedRow();
+            Book selectedBook = books.get(selectedIndex);
+            Database.getInstance().removeBook(selectedBook);
+            updateDataTable();
         });
         buttonClose.addActionListener(e -> System.exit(0));
 

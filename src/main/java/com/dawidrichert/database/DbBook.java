@@ -23,7 +23,7 @@ public class DbBook {
             Statement stmt = database.getConnection().createStatement();
 
             String sql;
-            sql  = String.format ("CREATE TABLE IF NOT EXISTS '%s' (", tableName);
+            sql  = String.format ("CREATE TABLE IF NOT EXISTS %s (", tableName);
             sql += String.format ("'%s' INTEGER PRIMARY KEY AUTOINCREMENT, ", col_Id);
             sql += String.format ("'%s' TEXT NOT NULL, ", col_Name);
             sql += String.format ("'%s' TEXT NOT NULL, ", col_Author);
@@ -48,7 +48,7 @@ public class DbBook {
             Statement stmt = database.getConnection().createStatement();
 
             String sql;
-            sql  = String.format ("INSERT INTO '%s' (", tableName);
+            sql  = String.format ("INSERT INTO %s (", tableName);
             sql += String.format ("%s, ", col_Name);
             sql += String.format ("%s, ", col_Author);
             sql += String.format ("%s, ", col_Publisher);
@@ -70,6 +70,48 @@ public class DbBook {
         System.out.println("Records created successfully");
     }
 
+    public static void update(Database database, Book book) {
+        try {
+            database.openConnection();
+            Statement stmt = database.getConnection().createStatement();
+
+            String sql;
+            sql  = String.format ("UPDATE %s SET ", tableName);
+            sql += String.format ("%s='%s', ", col_Name, book.getName());
+            sql += String.format ("%s='%s', ", col_Author, book.getAuthor());
+            sql += String.format ("%s='%s', ", col_Publisher, book.getPublisher());
+            sql += String.format ("%s='%s' ", col_PublicationYear, book.getPublicationYear());
+            sql += String.format ("WHERE %s=%s", col_Id, book.getId());
+
+            stmt.executeUpdate(sql);
+            database.getConnection().commit();
+            stmt.close();
+            database.closeConnection();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Record updated successfully");
+    }
+
+    public static void delete(Database database, Book book) {
+        try {
+            database.openConnection();
+            Statement stmt = database.getConnection().createStatement();
+
+            String sql = String.format("DELETE FROM %s WHERE %s=%s", tableName, col_Id, book.getId());
+
+            stmt.executeUpdate(sql);
+            database.getConnection().commit();
+            stmt.close();
+            database.closeConnection();
+        } catch (Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Record removed successfully");
+    }
+
     public static List<Book> getBooks(Database database) {
         List<Book> books = new ArrayList<>();
         ResultSet rs = null;
@@ -78,7 +120,7 @@ public class DbBook {
             database.openConnection();
             stmt = database.getConnection().createStatement();
 
-            String sql = String.format("SELECT * FROM '%s'", tableName);
+            String sql = String.format("SELECT * FROM %s", tableName);
 
             rs = stmt.executeQuery(sql);
 

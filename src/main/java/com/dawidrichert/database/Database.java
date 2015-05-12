@@ -34,8 +34,16 @@ public final class Database {
         DbBook.insert(instance, book);
     }
 
+    public void updateBook(Book book) {
+        DbBook.update(instance, book);
+    }
+
     public List<Book> getBooks() {
          return DbBook.getBooks(instance);
+    }
+
+    public void removeBook(Book book) {
+        DbBook.delete(instance, book);
     }
 
     protected void openConnection() {

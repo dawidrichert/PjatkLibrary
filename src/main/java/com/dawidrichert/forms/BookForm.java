@@ -18,6 +18,8 @@ public class BookForm extends JDialog {
     private MainForm mainForm;
     private boolean isEditMode = false;
 
+    private Book book = new Book();
+
     public BookForm(MainForm mainForm) {
         this.mainForm = mainForm;
 
@@ -46,6 +48,7 @@ public class BookForm extends JDialog {
     public BookForm(MainForm mainForm, Book book) {
         this(mainForm);
         isEditMode = true;
+        this.book = book;
         textFieldName.setText(book.getName());
         textFieldAuthor.setText(book.getAuthor());
         textFieldPublisher.setText(book.getPublisher());
@@ -53,12 +56,16 @@ public class BookForm extends JDialog {
     }
 
     private void onSave() {
-        Book book = new Book();
         book.setName(textFieldName.getText());
         book.setAuthor(textFieldAuthor.getText());
         book.setPublisher(textFieldPublisher.getText());
         book.setPublicationYear(textFieldPublicationYear.getText());
-        Database.getInstance().saveBook(book);
+
+        if(isEditMode) {
+            Database.getInstance().updateBook(book);
+        } else {
+            Database.getInstance().saveBook(book);
+        }
 
         mainForm.updateDataTable();
 
