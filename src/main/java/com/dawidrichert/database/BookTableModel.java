@@ -6,8 +6,9 @@ import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class BookTableModel extends AbstractTableModel {
+
     private List<Book> bookList;
-    private String[] columnNames = { "Name", "Author", "Publisher", "Publication year" };
+    private String[] columnNames = { "No.", "Name", "Author", "Publisher", "Year" };
 
     public BookTableModel(List<Book> bookList) {
         this.bookList = bookList;
@@ -27,10 +28,11 @@ public class BookTableModel extends AbstractTableModel {
 
     public Object getValueAt(int row, int col) {
         switch (col) {
-            case 0: return bookList.get(row).getName();
-            case 1: return bookList.get(row).getAuthor();
-            case 2: return bookList.get(row).getPublisher();
-            case 3: return bookList.get(row).getPublicationYear();
+            case 0: return row+1;
+            case 1: return bookList.get(row).getName();
+            case 2: return bookList.get(row).getAuthor();
+            case 3: return bookList.get(row).getPublisher();
+            case 4: return bookList.get(row).getPublicationYear();
         }
         return null;
     }

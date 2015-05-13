@@ -8,7 +8,13 @@ public class Book {
     private String publisher;
     private String publicationYear;
 
-    public Book() {
+    public Book() { }
+
+    public Book(String name, String author, String publisher, String publicationYear) {
+        this.name = name;
+        this.author = author;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
     }
 
     public int getId() {

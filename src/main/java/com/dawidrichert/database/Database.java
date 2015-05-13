@@ -4,7 +4,6 @@ import main.java.com.dawidrichert.database.model.Book;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -40,6 +39,10 @@ public final class Database {
 
     public List<Book> getBooks() {
          return DbBook.getBooks(instance);
+    }
+
+    public void removeAll() {
+        DbBook.deleteAll(instance);
     }
 
     public void removeBook(Book book) {

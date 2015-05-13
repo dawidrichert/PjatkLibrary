@@ -2,6 +2,7 @@ package main.java.com.dawidrichert.database;
 
 import main.java.com.dawidrichert.database.model.Book;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,21 +46,21 @@ public class DbBook {
     public static void insert(Database database, Book book) {
         try {
             database.openConnection();
-            Statement stmt = database.getConnection().createStatement();
 
             String sql;
             sql  = String.format ("INSERT INTO %s (", tableName);
             sql += String.format ("%s, ", col_Name);
             sql += String.format ("%s, ", col_Author);
             sql += String.format ("%s, ", col_Publisher);
-            sql += String.format ("%s) VALUES (", col_PublicationYear);
-            sql += String.format ("'%s', ", book.getName());
-            sql += String.format ("'%s', ", book.getAuthor());
-            sql += String.format ("'%s', ", book.getPublisher());
-            sql += String.format ("'%s'", book.getPublicationYear());
-            sql += ")";
+            sql += String.format ("%s) VALUES (?, ?, ?, ?)", col_PublicationYear);
 
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = database.getConnection().prepareStatement(sql);
+            stmt.setString(1, book.getName());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getPublisher());
+            stmt.setString(4, book.getPublicationYear());
+
+            stmt.executeUpdate();
             stmt.close();
             database.getConnection().commit();
             database.closeConnection();
@@ -73,17 +74,23 @@ public class DbBook {
     public static void update(Database database, Book book) {
         try {
             database.openConnection();
-            Statement stmt = database.getConnection().createStatement();
 
             String sql;
             sql  = String.format ("UPDATE %s SET ", tableName);
-            sql += String.format ("%s='%s', ", col_Name, book.getName());
-            sql += String.format ("%s='%s', ", col_Author, book.getAuthor());
-            sql += String.format ("%s='%s', ", col_Publisher, book.getPublisher());
-            sql += String.format ("%s='%s' ", col_PublicationYear, book.getPublicationYear());
-            sql += String.format ("WHERE %s=%s", col_Id, book.getId());
+            sql += String.format ("%s=?, ", col_Name);
+            sql += String.format ("%s=?, ", col_Author);
+            sql += String.format ("%s=?, ", col_Publisher);
+            sql += String.format ("%s=? ", col_PublicationYear);
+            sql += String.format ("WHERE %s=?", col_Id);
 
-            stmt.executeUpdate(sql);
+            PreparedStatement stmt = database.getConnection().prepareStatement(sql);
+            stmt.setString(1, book.getName());
+            stmt.setString(2, book.getAuthor());
+            stmt.setString(3, book.getPublisher());
+            stmt.setString(4, book.getPublicationYear());
+            stmt.setInt(5, book.getId());
+
+            stmt.executeUpdate();
             database.getConnection().commit();
             stmt.close();
             database.closeConnection();
@@ -100,6 +107,24 @@ public class DbBook {
             Statement stmt = database.getConnection().createStatement();
 
             String sql = String.format("DELETE FROM %s WHERE %s=%s", tableName, col_Id, book.getId());
+
+            stmt.executeUpdate(sql);
+            database.getConnection().commit();
+            stmt.close();
+            database.closeConnection();
+        } catch (Exception e) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        System.out.println("Record removed successfully");
+    }
+
+    public static void deleteAll(Database database) {
+        try {
+            database.openConnection();
+            Statement stmt = database.getConnection().createStatement();
+
+            String sql = String.format("DELETE FROM %s", tableName);
 
             stmt.executeUpdate(sql);
             database.getConnection().commit();
