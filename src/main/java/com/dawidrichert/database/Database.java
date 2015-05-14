@@ -1,7 +1,7 @@
-package main.java.com.dawidrichert.database;
+package com.dawidrichert.database;
 
-import main.java.com.dawidrichert.database.model.Book;
-import main.java.com.dawidrichert.utils.MessageBox;
+import com.dawidrichert.database.model.Book;
+import com.dawidrichert.utils.MessageBox;
 
 import java.sql.*;
 import java.util.List;

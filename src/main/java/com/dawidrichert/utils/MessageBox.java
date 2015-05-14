@@ -1,4 +1,4 @@
-package main.java.com.dawidrichert.utils;
+package com.dawidrichert.utils;
 
 import javax.swing.*;
 

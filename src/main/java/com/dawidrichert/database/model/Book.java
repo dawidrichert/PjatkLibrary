@@ -1,4 +1,4 @@
-package main.java.com.dawidrichert.database.model;
+package com.dawidrichert.database.model;
 
 public class Book {
 

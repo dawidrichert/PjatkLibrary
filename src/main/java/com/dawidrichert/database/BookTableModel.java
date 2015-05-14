@@ -1,6 +1,6 @@
-package main.java.com.dawidrichert.database;
+package com.dawidrichert.database;
 
-import main.java.com.dawidrichert.database.model.Book;
+import com.dawidrichert.database.model.Book;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
