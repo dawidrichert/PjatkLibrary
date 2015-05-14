@@ -3,11 +3,10 @@ package main.java.com.dawidrichert.forms;
 import main.java.com.dawidrichert.database.BookTableModel;
 import main.java.com.dawidrichert.database.Database;
 import main.java.com.dawidrichert.database.model.Book;
+import main.java.com.dawidrichert.utils.MessageBox;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -31,20 +30,12 @@ public class MainForm extends JFrame {
     private JButton buttonClose;
 
     private List<Book> books;
+    private BookTableModel bookTableModel;
 
     public MainForm() {
         super(windowTitle);
         initUI();
         updateDataTable();
-    }
-
-    public void updateDataTable() {
-        books = Database.getInstance().getBooks();
-        BookTableModel bookTableModel = new BookTableModel(books);
-        mainTable.setModel(bookTableModel);
-
-        mainTable.getColumn(bookTableModel.getColumnName(0)).setMaxWidth(30);
-        mainTable.getColumn(bookTableModel.getColumnName(4)).setMaxWidth(50);
     }
 
     private void initUI() {
@@ -61,8 +52,20 @@ public class MainForm extends JFrame {
         try {
             setIconImage(ImageIO.read(new File("src/main/res/icon.png")));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to set icon for the application. " + e.getClass().getName() + ": " + e.getMessage());
         }
+    }
+
+    public void updateDataTable() {
+        books = Database.getInstance().getBooks();
+        bookTableModel = new BookTableModel(books);
+        mainTable.setModel(bookTableModel);
+        setColumnsSizes();
+    }
+
+    private void setColumnsSizes() {
+        mainTable.getColumn(bookTableModel.getColumnName(0)).setMaxWidth(30);
+        mainTable.getColumn(bookTableModel.getColumnName(4)).setMaxWidth(50);
     }
 
     private void initMainTable() {
@@ -70,11 +73,12 @@ public class MainForm extends JFrame {
 
         mainTable.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    onEdit();
+                }
                 if (SwingUtilities.isRightMouseButton(e)) {
-                    Point p = e.getPoint();
-                    int rowNumber = mainTable.rowAtPoint(p);
-                    ListSelectionModel model = mainTable.getSelectionModel();
-                    model.setSelectionInterval(rowNumber, rowNumber);
+                    int rowIndex = mainTable.rowAtPoint(e.getPoint());
+                    mainTable.setRowSelectionInterval(rowIndex, rowIndex);
                 }
             }
         });
@@ -152,7 +156,7 @@ public class MainForm extends JFrame {
             BookForm bookForm = new BookForm(this, selectedBook);
             bookForm.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Please select book on the list to edit.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            MessageBox.showInformation("Please select book on the list to edit.");
         }
         mainTable.setRowSelectionInterval(selectedRowIndex, selectedRowIndex);
     }
@@ -168,7 +172,7 @@ public class MainForm extends JFrame {
                 updateDataTable();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Please select book on the list to remove.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            MessageBox.showInformation("Please select book on the list to remove.");
         }
     }
 

@@ -7,11 +7,11 @@ import java.util.List;
 
 public class BookTableModel extends AbstractTableModel {
 
-    private List<Book> bookList;
+    private List<Book> books;
     private String[] columnNames = { "No.", "Name", "Author", "Publisher", "Year" };
 
-    public BookTableModel(List<Book> bookList) {
-        this.bookList = bookList;
+    public BookTableModel(List<Book> books) {
+        this.books = books;
     }
 
     public int getColumnCount() {
@@ -19,7 +19,7 @@ public class BookTableModel extends AbstractTableModel {
     }
 
     public int getRowCount() {
-        return bookList.size();
+        return books.size();
     }
 
     public String getColumnName(int col) {
@@ -29,10 +29,10 @@ public class BookTableModel extends AbstractTableModel {
     public Object getValueAt(int row, int col) {
         switch (col) {
             case 0: return row+1;
-            case 1: return bookList.get(row).getName();
-            case 2: return bookList.get(row).getAuthor();
-            case 3: return bookList.get(row).getPublisher();
-            case 4: return bookList.get(row).getPublicationYear();
+            case 1: return books.get(row).getName();
+            case 2: return books.get(row).getAuthor();
+            case 3: return books.get(row).getPublisher();
+            case 4: return books.get(row).getPublicationYear();
         }
         return null;
     }

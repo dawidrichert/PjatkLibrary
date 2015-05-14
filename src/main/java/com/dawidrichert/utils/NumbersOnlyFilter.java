@@ -5,6 +5,13 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.DocumentFilter;
 
+/**
+ * NumbersOnlyFilter can be used for JTextField to allow accept only numbers.
+ *
+ * For example:
+ * PlainDocument doc = (PlainDocument)textField.getDocument();
+ * doc.setDocumentFilter(new NumbersOnlyFilter());
+ */
 public class NumbersOnlyFilter extends DocumentFilter {
 
     private final static int charactersLimit = 4;
@@ -20,18 +27,6 @@ public class NumbersOnlyFilter extends DocumentFilter {
 
         if (isValid(sb.toString())) {
             super.insertString(fb, offset, string, attr);
-        }
-    }
-
-    private boolean isValid(String text) {
-        if(text.length() > charactersLimit) {
-            return false;
-        }
-        try {
-            Integer.parseInt(text);
-            return true;
-        } catch (NumberFormatException e) {
-            return false;
         }
     }
 
@@ -60,6 +55,18 @@ public class NumbersOnlyFilter extends DocumentFilter {
 
         if (isValid(sb.toString())) {
             super.remove(fb, offset, length);
+        }
+    }
+
+    private boolean isValid(String text) {
+        if(text.length() > charactersLimit) {
+            return false;
+        }
+        try {
+            Integer.parseInt(text);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
         }
     }
 }
