@@ -132,7 +132,6 @@ public class MainForm extends JFrame {
         menuMain.add(menuItemExit);
 
         menuBar.add(menuMain);
-
         setJMenuBar(menuBar);
     }
 
@@ -155,10 +154,10 @@ public class MainForm extends JFrame {
 
             BookForm bookForm = new BookForm(this, selectedBook);
             bookForm.setVisible(true);
+            mainTable.setRowSelectionInterval(selectedRowIndex, selectedRowIndex);
         } else {
             MessageBox.showInformation("Please select book on the list to edit.");
         }
-        mainTable.setRowSelectionInterval(selectedRowIndex, selectedRowIndex);
     }
 
     private void onRemove() {
