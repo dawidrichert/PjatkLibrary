@@ -1,9 +1,9 @@
-package main.java.com.dawidrichert.forms;
+package com.dawidrichert.forms;
 
-import main.java.com.dawidrichert.database.Database;
-import main.java.com.dawidrichert.database.model.Book;
-import main.java.com.dawidrichert.utils.MessageBox;
-import main.java.com.dawidrichert.utils.NumbersOnlyFilter;
+import com.dawidrichert.database.Database;
+import com.dawidrichert.database.model.Book;
+import com.dawidrichert.utils.MessageBox;
+import com.dawidrichert.utils.NumbersOnlyFilter;
 
 import javax.swing.*;
 import javax.swing.text.*;

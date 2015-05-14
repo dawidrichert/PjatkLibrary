@@ -1,6 +1,6 @@
-package main.java.com.dawidrichert;
+package com.dawidrichert;
 
-import main.java.com.dawidrichert.forms.MainForm;
+import com.dawidrichert.forms.MainForm;
 
 import javax.swing.*;
 import java.awt.*;
