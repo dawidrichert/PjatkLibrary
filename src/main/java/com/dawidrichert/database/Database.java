@@ -3,7 +3,6 @@ package main.java.com.dawidrichert.database;
 import main.java.com.dawidrichert.database.model.Book;
 import main.java.com.dawidrichert.utils.MessageBox;
 
-import javax.swing.*;
 import java.sql.*;
 import java.util.List;
 

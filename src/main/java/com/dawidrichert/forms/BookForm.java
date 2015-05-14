@@ -22,7 +22,7 @@ public class BookForm extends JDialog {
     private JTextField textFieldAuthor;
     private JTextField textFieldPublicationYear;
 
-    private MainForm mainForm;
+    private final MainForm mainForm;
     private Book book = new Book();
 
     public BookForm(MainForm mainForm) {

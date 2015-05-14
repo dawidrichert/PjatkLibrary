@@ -7,8 +7,8 @@ import java.util.List;
 
 public class BookTableModel extends AbstractTableModel {
 
-    private List<Book> books;
-    private String[] columnNames = { "No.", "Name", "Author", "Publisher", "Year" };
+    private final List<Book> books;
+    private final String[] columnNames = { "No.", "Name", "Author", "Publisher", "Year" };
 
     public BookTableModel(List<Book> books) {
         this.books = books;
