@@ -1,5 +1,5 @@
-Zadanie zaliczeniowe - POJ
-Semestr 2, Grupa 2
+### Zadanie zaliczeniowe - POJ
+Semestr 2, Grupa 2 ###
 
 # **Dawid Richert: s12792** #
 
