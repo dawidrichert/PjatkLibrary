@@ -50,7 +50,7 @@ public class MainForm extends JFrame {
         initMenuBar();
 
         try {
-            setIconImage(ImageIO.read(new File("src/main/res/icon.png")));
+            setIconImage(ImageIO.read(new File("src/main/resources/icon.png")));
         } catch (IOException e) {
             System.err.println("Failed to set icon for the application. " + e.getClass().getName() + ": " + e.getMessage());
         }
