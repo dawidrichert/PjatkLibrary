@@ -30,6 +30,7 @@ public final class Database {
             DbBook.update(instance, book);
         }
     }
+    
     public void removeAll() {
         DbBook.deleteAll(instance);
     }
