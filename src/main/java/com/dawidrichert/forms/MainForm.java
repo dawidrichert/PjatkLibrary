@@ -32,6 +32,13 @@ public class MainForm extends MainFormGUI {
         updateDataTable();
     }
 
+    public void updateDataTable() {
+        books = Database.getInstance().getBooks();
+        bookTableModel = new BookTableModel(books);
+        mainTable.setModel(bookTableModel);
+        setColumnsSizes();
+    }
+
     private void initUI() {
         setContentPane(rootPanel);
         setMinimumSize(new Dimension(windowMinWidth, windowMinHeight));
@@ -48,13 +55,6 @@ public class MainForm extends MainFormGUI {
         } catch (IOException e) {
             System.err.println("Failed to set icon for the application. " + e.getClass().getName() + ": " + e.getMessage());
         }
-    }
-
-    public void updateDataTable() {
-        books = Database.getInstance().getBooks();
-        bookTableModel = new BookTableModel(books);
-        mainTable.setModel(bookTableModel);
-        setColumnsSizes();
     }
 
     private void setColumnsSizes() {
