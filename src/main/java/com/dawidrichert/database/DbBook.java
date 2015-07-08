@@ -10,6 +10,7 @@ import java.util.List;
 public class DbBook {
 
     private final static String tableName            = "Book";
+    
     private final static String col_Id               = "_id";
     private final static String col_Name             = "name";
     private final static String col_Author           = "author";
